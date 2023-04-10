@@ -38,7 +38,9 @@ const convertStateDbobjectApi1 = (ObjectItem) => {
 app.get("/states/", async (request, response) => {
   const getstateObjectQuery = `select * from state;`;
   const getstateObjectQueryResponse = await db.all(getstateObjectQuery);
-  response.send(getstateObjectQueryResponse.map((each) => convertStateDbobjectApi1(each)));
+  response.send(
+    getstateObjectQueryResponse.map((each) => convertStateDbobjectApi1(each))
+  );
 });
 
 //API 2 Returns a state based on the state ID
@@ -72,12 +74,12 @@ const convertDistrictQuery = (ObjectItem) => {
   };
 };
 
-app.get("/districts/:districtId/", async (response, request) => {
+app.get("/districts/:districtId/", async (request, response) => {
   const { districtId } = request.params;
   const getDistrictQuery = `
     select * from district where district_id=${districtId};`;
   const getDistrictQueryResponse = await db.get(getDistrictQuery);
-  response.send(getDistrictQueryResponse.map((each) => convertDistrictQuery(each)));
+  response.send(convertDistrictQuery(getDistrictQueryResponse));
 });
 
 //api 5
